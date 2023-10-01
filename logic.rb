@@ -1,3 +1,5 @@
+require_relative "Parser.rb"
+
 class PizzaBot
     attr_accessor(:size_of_field_x, :size_of_field_y, :coordinates)
 
@@ -8,14 +10,14 @@ class PizzaBot
         
     end
 
-    def self.get_navigation(given_str)
-        size_of_field_arr = given_str.strip.slice(0...given_str.index("(")).tr("x", " ").split(" ").map{|i| i.to_i}
-        @size_of_field_x, @size_of_field_y = size_of_field_arr[0], size_of_field_arr[1]
-        @coordinates = given_str.slice(given_str.index("(") + 1...given_str.length - 1).split(")(").map{|i| i.split(", ")}.each{|i| i[0], i[1] = i[0].to_i, i[1].to_i}
+    def self.get_navigation(given_str)                           
+        size_of_field = Parser.get_size_of_field(given_str)
+        @size_of_field_x, @size_of_field_y = size_of_field[0], size_of_field[1]
+
+        @coordinates = Parser.get_coordinates_arr(given_str)
     end
 
-
-    def self.mooving
+    def self.deliver_pizza
         current_coordinates = [0, 0]
         original_coordinates = [0, 0]
         path = ""
@@ -31,6 +33,6 @@ class PizzaBot
             original_coordinates[0], original_coordinates[1] = current_coordinates[0], current_coordinates[1]
             path += "D"
         end
-        print path
+        path
     end
 end
