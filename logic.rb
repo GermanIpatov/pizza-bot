@@ -19,7 +19,7 @@ class PizzaBot
         current_coordinates = [0, 0]
         original_coordinates = [0, 0]
         path = ""
-        for i in @coordinates
+        @coordinates.each do |i|
             until current_coordinates[0] == i[0]
                 i[0] > current_coordinates[0] ? current_coordinates[0] += 1 : current_coordinates[0] -= 1
             end
