@@ -11,22 +11,23 @@ class PizzaBot
     end
 
     def self.deliver_pizza
-        @current = [0, 0]
+        @current = Point.new(0, 0)
+        @original = Point.new(0, 0)
         @path = ""
         @coordinates.each{|i| aim(i)}
         @path                                    
     end
 
     def self.aim(goal)
-        original = @current[0], @current[1]    
-        until @current[0] == goal.x
-            goal.x > @current[0] ? @current[0] += 1 : @current[0] -= 1
+        @original.x, @original.y = @current.x, @current.y    
+        until @current.x == goal.x
+            goal.x > @current.x ? @current.x += 1 : @current.x -= 1
         end
-        until @current[1] == goal.y
-            goal.y > @current[1] ? @current[1] += 1 : @current[1] -= 1
+        until @current.y == goal.y
+            goal.y > @current.y ? @current.y += 1 : @current.y -= 1
         end
-        original[0] < @current[0] ? @path += "E" * (@current[0] - original[0]).abs : @path += "W" * (original[0] - @current[0]).abs
-        original[1] < @current[1] ? @path += "N" * (@current[1] - original[1]).abs : @path += "S" * (original[1] - @current[1]).abs
+        @original.x < @current.x ? @path += "E" * (@current.x - @original.x).abs : @path += "W" * (@original.x - @current.x).abs
+        @original.y < @current.y ? @path += "N" * (@current.y - @original.y).abs : @path += "S" * (@original.y - @current.y).abs
         @path += "D"
     end
 end
