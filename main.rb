@@ -1,3 +1,3 @@
-require_relative "pizzabot/StartPizzaBot.rb"
+require_relative "pizzabot/StartPizzaBot"
 
 StartPizzaBot.start
